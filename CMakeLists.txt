@@ -24,24 +24,14 @@ set(CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS_DEBUG} ${bounds} ${debugopt
 set(CMAKE_Fortran_RELEASE_FLAGS "${CMAKE_Fortran_RELEASE_FLAGS} ${realeaseopts}")
 
 set(SRC "${PROJECT_SOURCE_DIR}/src")
-set(fdm_SRC
+set(TESTS "${PROJECT_SOURCE_DIR}/tests")
+set(mm_SRC
   ${SRC}/matrix_multiplication.F90
   )
-set(fdm_MAIN run_mm.F90)
+set(mm_MAIN src/main.F90)
 
 # --------------------------------------------------------------------
 # Executables
 # --------------------------------------------------------------------
 
-add_executable("${PROJECT_NAME}" ${fdm_MAIN} ${fdm_SRC})
-
-# --------------------------------------------------------------------
-# Tests
-# --------------------------------------------------------------------
-#[[
-enable_testing()
-
-set(CTEST_OUTPUT_ON_FAILURE)
-add_test(NAME gauss_test
-  WORKING_DIRECTORY ${SRC}
-  COMMAND funit gauss)]]
+add_executable("${PROJECT_NAME}" ${mm_MAIN} ${mm_SRC})
