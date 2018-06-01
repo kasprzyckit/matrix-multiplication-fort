@@ -1,0 +1,180 @@
+module matrix_multiplicationTest
+contains
+
+subroutine test_mm(first, second, result, test_result, status, test_status)
+    use matrix_multiplication
+    use pfunit_mod
+    implicit none
+    real(kind= 8), intent(in) :: first(:,:), second(: ,:), test_result(:,:)
+    real(kind= 8),intent(out):: result(:,:)
+    integer(kind= 4), intent(out) :: status
+    integer(kind= 4), intent(in) :: test_status
+
+    call mm0(first, second, result, status)
+    @assertEqual(result, test_result)
+    @assertEqual(status, test_status)
+
+    call mm1(first, second, result, status)
+    @assertEqual(result, test_result)
+    @assertEqual(status, test_status)
+
+    call mm2(first, second, result, status)
+    @assertEqual(result, test_result)
+    @assertEqual(status, test_status)
+
+    call mm3(first, second, result, status)
+    @assertEqual(result, test_result)
+    @assertEqual(status, test_status)
+end subroutine
+
+@test
+subroutine oneXone()
+    implicit none
+    real(kind= 8), allocatable :: first(:, :), second(:, :), result(:, :), test_result(:, :)
+    integer(kind= 4) :: status
+
+    allocate(first(1, 1))
+    allocate(second(1, 1))
+    allocate(result(1, 1))
+    allocate(test_result(1, 1))
+
+    first = 3
+    second = 5
+    test_result = 15
+
+    call test_mm(first, second, result, test_result, status, 0)
+
+end subroutine
+
+@test
+subroutine oneXN()
+    implicit none
+    real(kind= 8), allocatable :: first(:, :), second(:, :), result(:, :), test_result(:, :)
+    integer(kind= 4) :: status, n
+
+    n = 500
+
+    allocate(first(1, n))
+    allocate(second(n, 1))
+    allocate(result(1, 1))
+    allocate(test_result(1, 1))
+
+    first = 17
+    second = 37
+    test_result = 314500
+
+    call test_mm(first, second, result, test_result, status, 0)
+
+    deallocate(result)
+    deallocate(test_result)
+    allocate(result(n, n))
+    allocate(test_result(n, n))
+
+    test_result = 629
+
+    call test_mm(second, first, result, test_result, status, 0)
+
+end subroutine
+
+@test
+subroutine large()
+    implicit none
+    real(kind= 8), allocatable :: first(:, :), second(:, :), result(:, :), test_result(:, :)
+    integer(kind= 4) :: status, n, m, k
+
+    n = 1500
+    m = 1700
+    k = 1300
+
+    allocate(first(n, k))
+    allocate(second(k, m))
+    allocate(result(n, m))
+    allocate(test_result(n, m))
+
+    first = 9
+    second = 13
+    test_result = 152100
+
+    call test_mm(first, second, result, test_result, status, 0)
+
+end subroutine
+
+@test
+subroutine invalid()
+    implicit none
+    real(kind= 8), allocatable :: first(:, :), second(:, :), result(:, :), test_result(:, :)
+    integer(kind= 4) :: status
+
+    allocate(first(150, 50))
+    allocate(second(100, 75))
+    allocate(result(200, 20))
+    allocate(test_result(200, 20))
+
+    first = 0
+    second = 0
+    test_result = 0
+
+    call test_mm(first, second, result, test_result, status, 1)
+
+    deallocate(second)
+    allocate(second(50, 75))
+
+    second = 0
+
+    call test_mm(first, second, result, test_result, status, 2)
+
+end subroutine
+
+@test
+subroutine stadard()
+    implicit none
+    real(kind= 8), allocatable :: first(:, :), second(:, :), result(:, :), test_result(:, :)
+    integer(kind= 4) :: status
+
+    allocate(first(150, 230))
+    allocate(second(230, 100))
+    allocate(result(150, 100))
+    allocate(test_result(150, 100))
+
+    first = 7
+    second = 13
+    test_result = 20930
+
+    call test_mm(first, second, result, test_result, status, 0)
+
+    deallocate(first)
+    deallocate(second)
+    deallocate(result)
+    deallocate(test_result)
+    allocate(first(80, 350))
+    allocate(second(350, 111))
+    allocate(result(80, 111))
+    allocate(test_result(80, 111))
+
+    first = 20
+    second = 150
+    test_result = 1050000
+
+    call test_mm(first, second, result, test_result, status, 0)
+
+end subroutine
+
+subroutine other()
+    implicit none
+    real(kind= 8), allocatable :: first(:, :), second(:, :), result(:, :), test_result(:, :)
+    integer(kind= 4) :: status
+
+    allocate(first(1, 1))
+    allocate(second(1, 1))
+    allocate(result(1, 1))
+    allocate(test_result(1, 1))
+
+    first = 3
+    second = 5
+    test_result = 15
+
+    call test_mm(first, second, result, test_result, status, 0)
+
+end subroutine
+
+end module
