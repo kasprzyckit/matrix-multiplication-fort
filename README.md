@@ -42,8 +42,8 @@ For N ∈ {100, 2500} with step of 100, with -02 compilation flag.<br />
 ![all](https://github.com/kasprzyckit/matrix-multiplication-fort/blob/master/results/mm_all.png)
 <br />
 On the image above:
-* blue - **mm0**, approximately ![equation](https://latex.codecogs.com/gif.latex?y%20%3D%200.052%20e%5E%7B0.00375%20x%7D), ranging within [0.002s, 174.393s]
-* green - **mm1**, approximately ![equation](https://latex.codecogs.com/gif.latex?y%20%3D%200.055%20e%5E%7B0.0038%20x%7D), ranging within [0.002s, 203.702s]
-* red - **mm2**, approximately ![equation](https://latex.codecogs.com/gif.latex?y%20%3D%200.027%20e%5E%7B0.00315%20x%7D), ranging within [0.002s, 29.036s]
-* cyan - **mm3**, approximately ![equation](https://latex.codecogs.com/gif.latex?y%20%3D%200.0562%20e%5E%7B0.00375%20x%7D), ranging within [0.002s, 160.675s]
-* magenta - library function, approximately ![equation](https://latex.codecogs.com/gif.latex?y%20%3D%200.0461%20e%5E%7B0.00332%20x%7D), ranging within [0.002s, 56.89s]
+* blue - **mm0**, ranging within [0.002s, 174.393s]
+* green - **mm1**, ranging within [0.002s, 203.702s]
+* red - **mm2**, ranging within [0.002s, 29.036s]
+* cyan - **mm3**, ranging within [0.002s, 160.675s]
+* magenta - library function, ranging within [0.002s, 56.89s]
